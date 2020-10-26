@@ -1,3 +1,6 @@
+
+import MyError from './error.js';
+
 class BugSend extends HTMLElement {
 
     html () {
@@ -62,6 +65,15 @@ class BugSend extends HTMLElement {
                 width:100%;
                 border-bottom:1px solid rgba(100,100,100,0.5);
             }
+
+            #feedback-form .msg {  
+                width:100%;            
+                color:red;
+                height:20px;
+                text-align: center;
+                font-size:12px;
+            }
+
             #feedback-form .row > *{
                 flex:1;
                 width:100%;
@@ -94,7 +106,7 @@ class BugSend extends HTMLElement {
             #feedback-form.active {
                 opacity:1;                
                 width:350px;
-                height:320px;
+                height:340px;
                 border-radius:5px;    
             }
 
@@ -134,6 +146,7 @@ class BugSend extends HTMLElement {
                 opacity:0.85;
                 z-index:1;
             }
+           
 
             .edit-btn.active {   
                 opacity: 0;
@@ -171,9 +184,13 @@ class BugSend extends HTMLElement {
                     <video autoplay poster id="videoCapture" width="300" height="150" style="display:none"></video>                                            
                     <video autoplay poster controls id="videoSave" class="video" width="300" height="150"></video>
                 </div>
+                   
+                <div class="msg">
+                    <i id="msg"></i>
+                </div>
 
                 <div class="submit-btn-row">
-                    
+
                         <img alt="send" id="send" class="button" width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAAAFzUkdC
                         AK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAASZQTFRF
                         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -301,13 +318,26 @@ class BugSend extends HTMLElement {
     }
       
     validate() {
+        
         // que no se este capturando datos
         // que se haya ingresado un detalle del error.
-        console.log("valido datos a enviar.");            
+        let shortDesc = this.shadowRoot.querySelector('#shortDesc');
+        if (!shortDesc.value) {
+            throw new MyError("Write a short descripcion of the bug.");
+        }
+
+        
+
     }
 
     clear() {
         console.log("vacío los datos del form y video etc.");
+        let shortDesc = this.shadowRoot.querySelector('#shortDesc').value="";
+        this.msg("");
+    }
+
+    msg(error) {
+        let msg = this.shadowRoot.querySelector("#msg").textContent = error; 
     }
 
     async capture() {
@@ -390,8 +420,12 @@ class BugSend extends HTMLElement {
             this.clear();
 
         } catch (err) {
-            console.log("error al enviar datos a api "+err);
-            // mostrar mensaje al usuario en el form.
+            if (err instanceof MyError) {
+                this.msg(err.msg);       
+                console.log("myerr: "+err.msg);                
+            } else {   
+                console.log("error al enviar datos a api "+err);     
+            }
         }
    }
 
