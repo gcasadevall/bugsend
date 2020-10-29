@@ -139,6 +139,7 @@ export default class BugSend extends BaseComponent {
 
    get template() {
     return `
+        
         <style>
         * {
             box-sizing:border-box;
@@ -146,7 +147,7 @@ export default class BugSend extends BaseComponent {
             padding:0px;
             font-family: 'Roboto Condensed', sans-serif;
         }
-
+        
         body {
             height:100vh;
             display:flex;
@@ -154,7 +155,7 @@ export default class BugSend extends BaseComponent {
             align-items:center;
             overflow:hidden;
         }
-
+        
         #feedback-form {
             position:fixed;
             right: 15px;                 
@@ -166,7 +167,7 @@ export default class BugSend extends BaseComponent {
             background:#fff;
             box-shadow:0px 4px 5px 1px rgba(100,100,100,0.6);
         }
-
+        
         #feedback-form.send {
             animation:sendIt 800ms ease forwards !important;
         }
@@ -184,22 +185,22 @@ export default class BugSend extends BaseComponent {
             border-radius:50%;
             z-index:3;
             cursor:pointer;
-
+        
         }
-
+        
         #feedback-form .title {
             padding:12px 15px;
             font-size:18px;
             color:#fff;
             background:#55acee;                                
         }
-
+        
         #feedback-form .row {
             display:flex;
             width:100%;
             border-bottom:1px solid rgba(100,100,100,0.5);
         }
-
+        
         #feedback-form .msg {  
             width:100%;            
             color:red;
@@ -207,7 +208,7 @@ export default class BugSend extends BaseComponent {
             text-align: center;
             font-size:12px;
         }
-
+        
         #feedback-form .row > *{
             flex:1;
             width:100%;
@@ -236,19 +237,19 @@ export default class BugSend extends BaseComponent {
             width:100px;                
             border:none;                
         }
-
+        
         #feedback-form.active {
             opacity:1;                
             width:350px;
             height:340px;
             border-radius:5px;    
         }
-
+        
         .video {
             margin: 5px;
             opacity: 0.7;
         }
-       
+        
         #feedback-form .button {
             margin-left: 5px;
             background-color: #3183d7;
@@ -258,7 +259,7 @@ export default class BugSend extends BaseComponent {
             color: black;
             inline-size: auto;
         }
-
+        
         .edit-btn {
             position:fixed;
             bottom:30px;
@@ -280,12 +281,12 @@ export default class BugSend extends BaseComponent {
             opacity:0.85;
             z-index:1;
         }
-       
-
+        
+        
         .edit-btn.active {   
             opacity: 0;
         }
-
+        
         @keyframes sendIt {
             0% {
                 transform:translateY(0px);
@@ -296,10 +297,9 @@ export default class BugSend extends BaseComponent {
             100%{
                 transform:translateY(-500px);
             }
-        }     
-        
+        }    
         </style>
-    
+
         <div id="feedback-form">
 
             <div id="close">

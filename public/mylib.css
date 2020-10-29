@@ -1,3 +1,5 @@
-.neutral {
-    background-color: blue;      
-}
+/*
+* Archivo css global a toda la aplicacion.
+* Será visible dentro de cada componente que herede de BaseComponent
+*/
+

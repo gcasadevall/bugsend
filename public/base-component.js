@@ -1,14 +1,13 @@
-/**
- * Componente base 
- */
+import {config} from './config.js';
+
 export default class BaseComponent extends HTMLElement {
 
     constructor() {
         super();
     
-        let shadowRoot = this.attachShadow({mode: 'open'});
-  
-        shadowRoot.innerHTML = this.template;
+        this.attachShadow({mode: 'open'});
+
+        this.repaint();
     }
 
     get template() {
@@ -16,7 +15,11 @@ export default class BaseComponent extends HTMLElement {
     }
 
     get globalcss() {
-        return ` <link rel="style" href="./mylib.css" /> `;
+        return ` <link rel="stylesheet" href="mylib.css"> `;
+    }
+
+    repaint() {
+        this.shadowRoot.innerHTML = this.globalcss + this.template;
     }
     
 }

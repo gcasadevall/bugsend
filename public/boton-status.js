@@ -1,4 +1,5 @@
 import BaseComponent from './base-component.js';
+import { config } from './config.js';
 
 export default class BotonStatus extends BaseComponent {
 
@@ -20,11 +21,9 @@ export default class BotonStatus extends BaseComponent {
     }
   
     attributeChangedCallback(attr, oldVal, newVal) {
-      console.log('attributeChangedCallback');
       if(attr == 'status' && oldVal != newVal) {
         this.status = newVal;
-        console.log(this.status);
-        this.shadowRoot.innerHTML = this.template;
+        this.repaint();
       }
     }
 
@@ -34,8 +33,7 @@ export default class BotonStatus extends BaseComponent {
 
     set status(status) {
       this.setAttribute("status",status);
-    }
-  
+    }  
     
     get template() {
       return `
@@ -59,9 +57,9 @@ export default class BotonStatus extends BaseComponent {
             10%, 40% {transform: scale(0.7) rotate(-1.5deg);}  
             100% {transform: scale(1) rotate(0);} 
           } 
-          /*.neutral {
+          .neutral {
             background-color: #888;
-          }*/
+          }
           .danger {
             background-color: #d66;
           }
