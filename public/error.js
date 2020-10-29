@@ -4,9 +4,6 @@ export default class MyError extends Error {
         super();
         this.msg = msg;
     }
-
-
-
 }
      
   
